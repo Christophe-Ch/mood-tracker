@@ -1,3 +1,76 @@
 :host {
   flex: 1;
+  position: relative;
+}
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 50%;
+  height: 80%;
+}
+
+@keyframes radius {
+  from {
+    border-radius: 50% 45% 45% 50%;
+    width: 15rem;
+  }
+
+  to {
+    border-radius: 45% 42% 49% 43%;
+    width: 14.5rem;
+  }
+}
+
+.face {
+  height: 15rem;
+  width: 15rem;
+  background: rgba(240, 236, 87, 0.6);
+  border-radius: 50% 45% 45% 50%;
+  position: relative;
+  overflow: hidden;
+  animation: 1.5s ease-in infinite alternate radius;
+}
+
+.face-overlay {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: lightgrey;
+  opacity: 0;
+}
+
+.eyes {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.eye {
+  height: 1px;
+  width: 2px;
+  background: black;
+}
+
+.mouth {
+  width: 35%;
+  height: 6rem;
+  border: 1px solid black;
+  border-color: transparent transparent black transparent;
+  position: absolute;
+  bottom: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50%;
 }

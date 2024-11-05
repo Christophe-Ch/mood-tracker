@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="face" #face>
+    <div class="face-overlay" #faceOverlay></div>
+    <div class="eyes">
+      <div class="eye" #eye></div>
+      <div class="eye" #eye></div>
+    </div>
+    <div class="mouth" #mouth></div>
+  </div>
+
+  <input
+    type="range"
+    [(ngModel)]="moodInput"
+    min="-50"
+    max="50"
+    step="50"
+    value="50"
+  />
+</div>
