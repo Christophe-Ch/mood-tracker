@@ -1,80 +1,67 @@
 import {
-  AfterContentInit,
-  AfterViewInit,
   Component,
   effect,
   ElementRef,
   inject,
-  Injector,
-  runInInjectionContext,
+  input,
+  OnChanges,
   signal,
+  SimpleChanges,
   viewChild,
   viewChildren,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
-const MAX_SMILE_HEIGHT = 6;
-const MIN_SMILE_WIDTH = 20;
-const MAX_SMILE_WIDTH = 35;
-const MIN_EYE_SIZE = 2;
-const MAX_EYE_SIZE = 15;
+import MoodRecord from '../mood/models/mood-record.model';
+import { Mood } from '../mood/models/mood.enum';
+import { MoodService } from '../mood/services/mood.service';
+import { FaceComponent } from '../face/face.component';
 
 @Component({
   selector: 'app-mood-display',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, FaceComponent],
   templateUrl: './mood-display.component.html',
   styleUrl: './mood-display.component.scss',
 })
-export class MoodDisplayComponent implements AfterContentInit {
-  private _injector = inject(Injector);
+export class MoodDisplayComponent implements OnChanges {
+  private _moodService = inject(MoodService);
 
-  mouth = viewChild<ElementRef>('mouth');
-  face = viewChild<ElementRef>('face');
-  faceOverlay = viewChild<ElementRef>('faceOverlay');
-  eyes = viewChildren<ElementRef>('eye');
+  mood = input<MoodRecord | null>();
   moodInput = signal(50);
 
-  ngAfterContentInit(): void {
-    runInInjectionContext(this._injector, () => {
-      effect(() => {
-        const mouth = this.mouth()!.nativeElement;
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['mood'] && this.mood()) {
+      this.moodInput.set(this._getValueFromMood());
+    }
+  }
 
-        const absValue = Math.abs(this.moodInput()) * 2;
-        const smileHeight = (MAX_SMILE_HEIGHT * absValue) / 100;
-        const smileWidth =
-          MIN_SMILE_WIDTH +
-          ((MAX_SMILE_WIDTH - MIN_SMILE_WIDTH) * absValue) / 100;
-        mouth.style.height = `${smileHeight}rem`;
-        mouth.style.width = `${smileWidth}%`;
-        this.faceOverlay()!.nativeElement.style.opacity = `${100 - absValue}%`;
+  updateMood(): void {
+    const record = this.mood();
 
-        for (const eye of this.eyes()) {
-          const calculated = `${
-            MIN_EYE_SIZE + ((MAX_EYE_SIZE - MIN_EYE_SIZE) * absValue) / 100
-          }px`;
-          const other = `${MIN_EYE_SIZE}px`;
-          if (this.moodInput() < 0) {
-            eye.nativeElement.style.width = calculated;
-            eye.nativeElement.style.height = other;
-          } else {
-            eye.nativeElement.style.height = calculated;
-            eye.nativeElement.style.width = other;
-          }
-        }
+    if (record) {
+      record.mood = this._getMoodFromInput();
+      this._moodService.update(record);
+    }
+  }
 
-        if (this.moodInput() < 0) {
-          mouth.style.borderColor = 'black transparent transparent transparent';
-          mouth.style.bottom = 'auto';
-          mouth.style.top = '70%';
-          this.face()!.nativeElement.style.background = '#AEE5D8';
-        } else {
-          mouth.style.borderColor = 'transparent transparent black transparent';
-          mouth.style.bottom = '30%';
-          mouth.style.top = 'auto';
-          this.face()!.nativeElement.style.background = '#F8E16C';
-        }
-      });
-    });
+  private _getMoodFromInput(): Mood {
+    if (this.moodInput() === -50) {
+      return Mood.Sad;
+    } else if (this.moodInput() === 50) {
+      return Mood.Happy;
+    }
+
+    return Mood.Unset;
+  }
+
+  private _getValueFromMood(): number {
+    switch (this.mood()?.mood) {
+      case Mood.Happy:
+        return 50;
+      case Mood.Sad:
+        return -50;
+      default:
+        return 0;
+    }
   }
 }

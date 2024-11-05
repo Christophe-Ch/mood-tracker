@@ -1,5 +1,5 @@
 <app-header />
 <div class="main-content">
-  <app-mood-display />
-  <app-row-calendar />
+  <app-mood-display [mood]="currentRecord()" />
+  <app-row-calendar (currentRecordUpdate)="currentRecord.set($event)" />
 </div>

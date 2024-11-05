@@ -46,6 +46,7 @@
     transparent 50%
   );
   transform: translateX(-3px);
+  cursor: pointer;
 
   &.happy {
     --background-color: rgba(50, 200, 50, 0.2);
@@ -61,7 +62,11 @@
 
   &:last-child {
     outline: 3px solid rgba(0, 0, 0, 0.6);
-    animation: .5s current-date forwards;
+    animation: 0.5s current-date forwards;
+  }
+
+  &:not(:last-child):hover {
+    outline-width: 2px;
   }
 
   .number {
@@ -96,15 +101,15 @@
     cursor: pointer;
     position: relative;
     overflow: hidden;
-    background-color: white;
-    transition: .3s;
+    background-color: transparent;
+    transition: 0.3s;
 
     span {
       position: absolute;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
-      transition: .3s;
+      transition: 0.3s;
     }
 
     &:first-child {
@@ -118,7 +123,7 @@
       left: -50%;
       top: 50%;
       transform: translate(-50%, -50%);
-      transition: .3s;
+      transition: 0.3s;
     }
 
     &:hover {
