@@ -1,0 +1,11 @@
+:host {
+  display: flex;
+  justify-content: center;
+}
+
+span {
+  margin-block: 1rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+  user-select: none;
+}

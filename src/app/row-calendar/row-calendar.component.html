@@ -1,0 +1,26 @@
+<div class="dates-container">
+  <div class="dates">
+    @for (record of records(); track record.date) {
+    <div
+      class="date"
+      [class.happy]="record.mood === 'Happy'"
+      [class.sad]="record.mood === 'Sad'"
+    >
+      <div class="number">{{ record.date.getDate() }}</div>
+      <div class="month">
+        {{ record.date.toLocaleString("default", { month: "short" }) }}
+      </div>
+    </div>
+    }
+  </div>
+  <div class="filler"></div>
+</div>
+<div class="date-actions">
+  <button (click)="previousDay()">
+    <span>&#10132;</span>
+  </button>
+  <span class="date-heading">today</span>
+  <button (click)="nextDay()">
+    <span>&#10132;</span>
+  </button>
+</div>

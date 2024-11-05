@@ -1,0 +1,140 @@
+:host {
+  user-select: none;
+}
+
+.dates-container {
+  display: flex;
+  justify-content: center;
+}
+
+.dates {
+  display: flex;
+  justify-content: end;
+  gap: 1rem;
+  width: 29rem;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 1) 30%
+  );
+  /* For browser compatibility */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 1) 30%
+  );
+}
+
+.filler {
+  width: 24rem;
+}
+
+.date {
+  min-width: 5rem;
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  outline: 1px solid rgba(0, 0, 0, 0.3);
+  margin-block: 3px;
+  background: radial-gradient(
+    circle at 0% 100%,
+    var(--background-color),
+    transparent 50%
+  );
+  transform: translateX(-3px);
+
+  &.happy {
+    --background-color: rgba(50, 200, 50, 0.2);
+  }
+
+  &.sad {
+    --background-color: rgba(200, 50, 50, 0.2);
+  }
+
+  &:not(.sad):not(.happy) {
+    --background-color: rgba(50, 50, 50, 0.2);
+  }
+
+  &:last-child {
+    outline: 3px solid rgba(0, 0, 0, 0.6);
+    animation: .5s current-date forwards;
+  }
+
+  .number {
+    font-size: 1.5rem;
+  }
+}
+
+@keyframes current-date {
+  from {
+    background-size: 100%;
+  }
+
+  to {
+    background-size: 200%;
+  }
+}
+
+.date-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  gap: 3rem;
+
+  button {
+    border: 2px solid black;
+    background: transparent;
+    font-weight: bolder;
+    width: 3rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    background-color: white;
+    transition: .3s;
+
+    span {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      transition: .3s;
+    }
+
+    &:first-child {
+      transform: rotate(180deg);
+    }
+
+    &::after {
+      content: "➔";
+      color: white;
+      position: absolute;
+      left: -50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      transition: .3s;
+    }
+
+    &:hover {
+      background-color: black;
+
+      span {
+        left: 150%;
+      }
+
+      &::after {
+        left: 50%;
+      }
+    }
+  }
+
+  .date-heading {
+    font-size: 3rem;
+  }
+}
