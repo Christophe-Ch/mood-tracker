@@ -5,7 +5,9 @@
       class="date"
       [class.happy]="record.mood === 'Happy'"
       [class.sad]="record.mood === 'Sad'"
-      (click)="selectDay(record.date)"
+      [class.current]="record.date.getTime() === currentDate().getTime()"
+      [class.disabled]="record.date > today"
+      (click)="record.date <= today ? selectDay(record.date) : null"
     >
       <div class="number">{{ record.date.getDate() }}</div>
       <div class="month">
@@ -14,14 +16,16 @@
     </div>
     }
   </div>
-  <div class="filler"></div>
 </div>
 <div class="date-actions">
   <button (click)="previousDay()">
     <span>&#10132;</span>
   </button>
-  <span class="date-heading">today</span>
-  <button (click)="nextDay()">
+  <span class="date-heading">{{ currentDateHeading() }}</span>
+  <button
+    (click)="nextDay()"
+    [disabled]="currentDate().getTime() === today.getTime()"
+  >
     <span>&#10132;</span>
   </button>
 </div>

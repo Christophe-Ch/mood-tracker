@@ -10,6 +10,8 @@ import MoodRecord from '../mood/models/mood-record.model';
 import { Mood } from '../mood/models/mood.enum';
 import { MoodService } from '../mood/services/mood.service';
 
+const TODAY = new Date(new Date().setHours(0, 0, 0, 0));
+
 @Component({
   selector: 'app-row-calendar',
   standalone: true,
@@ -18,38 +20,44 @@ import { MoodService } from '../mood/services/mood.service';
   styleUrl: './row-calendar.component.scss',
 })
 export class RowCalendarComponent {
-  private _currentDate = signal(new Date(new Date().setHours(0, 0, 0, 0)));
   private _moodService = inject(MoodService);
 
-  records = computed(() => this.generateRecords(this._currentDate()));
+  today = TODAY;
+  records = computed(() => this.generateRecords(this.currentDate()));
+  currentDate = signal(TODAY);
+  currentDateHeading = computed(() =>
+    this.currentDate().getTime() === TODAY.getTime()
+      ? 'today'
+      : this.currentDate().toLocaleDateString()
+  );
   currentRecordUpdate = output<MoodRecord>();
 
   constructor() {
     effect(() => {
-      this.currentRecordUpdate.emit(this.records()[this.records().length - 1]);
+      this.currentRecordUpdate.emit(this.records()[4]);
     });
   }
 
   previousDay(): void {
-    const previous = new Date(this._currentDate());
+    const previous = new Date(this.currentDate());
     previous.setDate(previous.getDate() - 1);
-    this._currentDate.set(previous);
+    this.currentDate.set(previous);
   }
 
   nextDay(): void {
-    const next = new Date(this._currentDate());
+    const next = new Date(this.currentDate());
     next.setDate(next.getDate() + 1);
-    this._currentDate.set(next);
+    this.currentDate.set(next);
   }
 
   selectDay(day: Date): void {
-    this._currentDate.set(day);
+    this.currentDate.set(day);
   }
 
   private generateRecords(from: Date): MoodRecord[] {
     const records = [];
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = -4; i < 5; i++) {
       const date = new Date(from);
       date.setDate(from.getDate() - i);
       records.unshift(

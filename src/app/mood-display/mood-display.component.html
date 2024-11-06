@@ -1,12 +1,16 @@
 <div class="container">
   <app-face [value]="moodInput()" />
-  <input
-    type="range"
-    [(ngModel)]="moodInput"
-    (input)="updateMood()"
-    min="-50"
-    max="50"
-    step="50"
-    value="50"
-  />
+  <div class="input-container">
+    <span>Sad</span>
+    <input
+      type="range"
+      [(ngModel)]="moodInput"
+      (input)="updateMood()"
+      min="-50"
+      max="50"
+      step="50"
+      value="50"
+    />
+    <span>Happy</span>
+  </div>
 </div>

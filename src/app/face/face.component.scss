@@ -18,6 +18,7 @@
   position: relative;
   overflow: hidden;
   animation: 1.5s ease-in infinite alternate radius;
+  transition: .3s;
 }
 
 .face-overlay {
@@ -27,6 +28,7 @@
   width: 100%;
   background: lightgrey;
   opacity: 0;
+  transition: .3s;
 }
 
 .eyes {
@@ -37,12 +39,14 @@
   width: 30%;
   display: flex;
   justify-content: space-between;
+  transition: .3s;
 }
 
 .eye {
   height: 1px;
   width: 2px;
   background: black;
+  transition: .3s;
 }
 
 .mouth {
@@ -55,4 +59,5 @@
   left: 50%;
   transform: translateX(-50%);
   border-radius: 50%;
+  transition: height .3s, width .3s;
 }

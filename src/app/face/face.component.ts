@@ -6,8 +6,6 @@ import {
   viewChild,
   viewChildren,
 } from '@angular/core';
-import MoodRecord from '../mood/models/mood-record.model';
-import { Mood } from '../mood/models/mood.enum';
 
 const MAX_SMILE_HEIGHT = 6;
 const MIN_SMILE_WIDTH = 20;
@@ -68,7 +66,7 @@ export class FaceComponent {
       mouth.style.bottom = 'auto';
       mouth.style.top = '70%';
       this.face()!.nativeElement.style.background = '#AEE5D8';
-    } else {
+    } else if (value > 0) {
       mouth.style.borderColor = 'transparent transparent black transparent';
       mouth.style.bottom = '30%';
       mouth.style.top = 'auto';
