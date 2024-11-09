@@ -1,22 +1,14 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
-import { MoodDisplayComponent } from './mood-display/mood-display.component';
-import { RowCalendarComponent } from './row-calendar/row-calendar.component';
-import MoodRecord from './mood/models/mood-record.model';
+import { RowCalendarComponent } from './pages/mood-page/row-calendar/row-calendar.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  imports: [
-    CommonModule,
-    HeaderComponent,
-    MoodDisplayComponent,
-    RowCalendarComponent,
-  ],
+  imports: [CommonModule, HeaderComponent, RowCalendarComponent, RouterModule],
 })
-export class AppComponent {
-  currentRecord = signal<MoodRecord | null>(null);
-}
+export class AppComponent {}

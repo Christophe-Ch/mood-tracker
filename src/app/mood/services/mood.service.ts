@@ -27,7 +27,9 @@ export class MoodService {
     );
   }
 
-  delete(record: MoodRecord): void {
-    //this.repository.delete(record);
+  findByYear(year: number): MoodRecord[] {
+    return this._repository.filter(
+      (record) => record.date.getFullYear() === year
+    );
   }
 }

@@ -5,7 +5,7 @@
 }
 
 .main-content {
-  flex: 1;
+  height: calc(100% - 4rem);
   display: flex;
   flex-direction: column;
 }

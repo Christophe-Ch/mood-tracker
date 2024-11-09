@@ -8,10 +8,10 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import MoodRecord from '../mood/models/mood-record.model';
-import { Mood } from '../mood/models/mood.enum';
-import { MoodService } from '../mood/services/mood.service';
-import { dateTimeToDate, dateToInputValue } from '../utils/date';
+import MoodRecord from '../../../mood/models/mood-record.model';
+import { Mood } from '../../../mood/models/mood.enum';
+import { MoodService } from '../../../mood/services/mood.service';
+import { dateTimeToDate, dateToInputValue } from '../../../utils/date';
 
 const TODAY = new Date(new Date().setHours(0, 0, 0, 0));
 

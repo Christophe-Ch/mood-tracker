@@ -1,1 +1,12 @@
 <span>MoodTracker</span>
+<button [routerLink]="router.url.includes('calendar') ? '/' : '/calendar'">
+  @if (router.url.includes('calendar')) {
+  <div class="button-content">
+    <fa-icon [icon]="faSmile"></fa-icon> <span>Mood</span>
+  </div>
+  } @else {
+  <div class="button-content">
+    <fa-icon [icon]="faCalendar"></fa-icon> <span>Calendar</span>
+  </div>
+  }
+</button>

@@ -1,19 +1,15 @@
 import {
   Component,
-  effect,
-  ElementRef,
   inject,
   input,
   OnChanges,
   signal,
   SimpleChanges,
-  viewChild,
-  viewChildren,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import MoodRecord from '../mood/models/mood-record.model';
-import { Mood } from '../mood/models/mood.enum';
-import { MoodService } from '../mood/services/mood.service';
+import MoodRecord from '../../../mood/models/mood-record.model';
+import { Mood } from '../../../mood/models/mood.enum';
+import { MoodService } from '../../../mood/services/mood.service';
 import { FaceComponent } from '../face/face.component';
 
 @Component({

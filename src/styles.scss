@@ -7,3 +7,28 @@ body {
   margin: 0;
   font-family: "Inter", "Helvetica Neue", sans-serif;
 }
+
+/* Custom transition */
+@keyframes translate-out {
+  to {
+    transform: scale(0);
+    transform-origin: top right;
+  }
+}
+
+@keyframes translate-in {
+  from {
+    transform: scale(0);
+    transform-origin: top right;
+  }
+}
+
+::view-transition-old(calendar-page),
+::view-transition-new(calendar-page) {
+  animation-duration: 300ms;
+  animation-name: -ua-view-transition-fade-in, translate-in;
+}
+
+::view-transition-old(calendar-page) {
+  animation-name: -ua-view-transition-fade-out, translate-out;
+}

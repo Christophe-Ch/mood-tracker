@@ -1,0 +1,49 @@
+:host {
+  view-transition-name: calendar-page;
+  height: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.moods-container {
+  flex: 1;
+  overflow: scroll;
+  padding: 2rem;
+}
+
+.moods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  min-height: min-content;
+  overflow: scroll;
+}
+
+.mood {
+  height: 2.5rem;
+  width: 2.5rem;
+  background-color: lightgrey;
+  cursor: pointer;
+
+  &.happy {
+    background-color: rgba(50, 200, 50, 0.75);
+  }
+
+  &.sad {
+    background-color: rgba(200, 50, 50, 0.75);
+  }
+
+  &.disabled {
+    cursor: auto;
+    opacity: 0.15;
+  }
+}
+
+.year {
+  display: block;
+  text-align: center;
+  padding-block: 2rem;
+  font-size: 3rem;
+  user-select: none;
+}

@@ -1,0 +1,15 @@
+<div class="moods-container">
+  <div class="moods">
+    @for (record of moods(); track $index) {
+    <div
+      class="mood"
+      [class.happy]="record.mood === 'Happy'"
+      [class.sad]="record.mood === 'Sad'"
+      [class.disabled]="record.date > today"
+    ></div>
+    }
+  </div>
+</div>
+<div class="year">
+  <span>2024</span>
+</div>
