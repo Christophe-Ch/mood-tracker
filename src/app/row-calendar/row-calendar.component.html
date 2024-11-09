@@ -21,7 +21,18 @@
   <button (click)="previousDay()">
     <span>&#10132;</span>
   </button>
-  <span class="date-heading">{{ currentDateHeading() }}</span>
+  <div class="date-heading">
+    <span (click)="showDatePicker()">{{ currentDateHeading() }}</span>
+    <input
+      type="date"
+      class="date-selector"
+      [max]="currentDateSelectorMaxValue"
+      [value]="currentDateSelectorValue()"
+      (input)="selectDayFromInput()"
+      required
+      #dateSelector
+    />
+  </div>
   <button
     (click)="nextDay()"
     [disabled]="currentDate().getTime() === today.getTime()"

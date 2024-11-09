@@ -2,13 +2,16 @@ import {
   Component,
   computed,
   effect,
+  ElementRef,
   inject,
   output,
   signal,
+  viewChild,
 } from '@angular/core';
 import MoodRecord from '../mood/models/mood-record.model';
 import { Mood } from '../mood/models/mood.enum';
 import { MoodService } from '../mood/services/mood.service';
+import { dateTimeToDate, dateToInputValue } from '../utils/date';
 
 const TODAY = new Date(new Date().setHours(0, 0, 0, 0));
 
@@ -23,14 +26,22 @@ export class RowCalendarComponent {
   private _moodService = inject(MoodService);
 
   today = TODAY;
+
   records = computed(() => this.generateRecords(this.currentDate()));
+  currentRecordUpdate = output<MoodRecord>();
+
   currentDate = signal(TODAY);
   currentDateHeading = computed(() =>
     this.currentDate().getTime() === TODAY.getTime()
       ? 'today'
       : this.currentDate().toLocaleDateString()
   );
-  currentRecordUpdate = output<MoodRecord>();
+
+  currentDateSelectorElement = viewChild<ElementRef>('dateSelector');
+  currentDateSelectorValue = computed(() =>
+    dateToInputValue(this.currentDate())
+  );
+  currentDateSelectorMaxValue = dateToInputValue(TODAY);
 
   constructor() {
     effect(() => {
@@ -52,6 +63,23 @@ export class RowCalendarComponent {
 
   selectDay(day: Date): void {
     this.currentDate.set(day);
+  }
+
+  selectDayFromInput(): void {
+    let date;
+    if (this.currentDateSelectorElement()?.nativeElement.value) {
+      date = dateTimeToDate(
+        new Date(this.currentDateSelectorElement()?.nativeElement.value)
+      );
+    } else {
+      date = TODAY;
+    }
+
+    this.selectDay(date);
+  }
+
+  showDatePicker(): void {
+    this.currentDateSelectorElement()?.nativeElement.showPicker();
   }
 
   private generateRecords(from: Date): MoodRecord[] {

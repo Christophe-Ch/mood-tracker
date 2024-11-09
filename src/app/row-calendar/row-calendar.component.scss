@@ -133,7 +133,7 @@
 
     &:disabled {
       cursor: auto;
-      border-color: lightgrey;;
+      border-color: lightgrey;
     }
 
     &:not(:disabled):hover {
@@ -153,5 +153,19 @@
     font-size: 3rem;
     width: 14rem;
     text-align: center;
+    position: relative;
+
+    span:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .date-selector {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      opacity: 0;
+    }
   }
 }
