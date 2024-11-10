@@ -8,7 +8,6 @@
 
 .moods-container {
   flex: 1;
-  overflow: scroll;
   padding: 2rem;
 }
 
@@ -17,7 +16,7 @@
   flex-wrap: wrap;
   gap: 0.75rem;
   min-height: min-content;
-  overflow: scroll;
+  overflow-y: auto;
 }
 
 .mood {
@@ -41,9 +40,69 @@
 }
 
 .year {
-  display: block;
-  text-align: center;
-  padding-block: 2rem;
-  font-size: 3rem;
-  user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  gap: 3rem;
+
+  button {
+    border: 2px solid black;
+    background: transparent;
+    font-weight: bolder;
+    width: 3rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    background-color: transparent;
+    transition: 0.3s;
+
+    span {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      transition: 0.3s;
+    }
+
+    &:first-child {
+      transform: rotate(180deg);
+    }
+
+    &::after {
+      content: "➔";
+      color: white;
+      position: absolute;
+      left: -50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      transition: 0.3s;
+    }
+
+    &:disabled {
+      cursor: auto;
+      border-color: lightgrey;
+    }
+
+    &:not(:disabled):hover {
+      background-color: black;
+
+      span {
+        left: 150%;
+      }
+
+      &::after {
+        left: 50%;
+      }
+    }
+  }
+
+  .year-heading {
+    font-size: 3rem;
+    width: 10rem;
+    text-align: center;
+    position: relative;
+  }
 }

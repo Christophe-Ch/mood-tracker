@@ -11,5 +11,14 @@
   </div>
 </div>
 <div class="year">
-  <span>2024</span>
+  <button (click)="previousYear()">
+    <span>&#10132;</span>
+  </button>
+  <span class="year-heading">{{ currentYear() }}</span>
+  <button
+    (click)="nextYear()"
+    [disabled]="currentYear() === today.getFullYear()"
+  >
+    <span>&#10132;</span>
+  </button>
 </div>

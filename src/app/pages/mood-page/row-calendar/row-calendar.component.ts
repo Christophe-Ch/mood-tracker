@@ -11,9 +11,12 @@ import {
 import MoodRecord from '../../../mood/models/mood-record.model';
 import { Mood } from '../../../mood/models/mood.enum';
 import { MoodService } from '../../../mood/services/mood.service';
-import { dateTimeToDate, dateToInputValue } from '../../../utils/date';
-
-const TODAY = new Date(new Date().setHours(0, 0, 0, 0));
+import {
+  addDaysToDate,
+  dateTimeToDate,
+  dateToInputValue,
+  TODAY,
+} from '../../../utils/date';
 
 @Component({
   selector: 'app-row-calendar',
@@ -50,14 +53,12 @@ export class RowCalendarComponent {
   }
 
   previousDay(): void {
-    const previous = new Date(this.currentDate());
-    previous.setDate(previous.getDate() - 1);
+    const previous = addDaysToDate(this.currentDate(), -1);
     this.currentDate.set(previous);
   }
 
   nextDay(): void {
-    const next = new Date(this.currentDate());
-    next.setDate(next.getDate() + 1);
+    const next = addDaysToDate(this.currentDate(), 1);
     this.currentDate.set(next);
   }
 
@@ -86,8 +87,7 @@ export class RowCalendarComponent {
     const records = [];
 
     for (let i = -4; i < 5; i++) {
-      const date = new Date(from);
-      date.setDate(from.getDate() - i);
+      const date = addDaysToDate(from, -i);
       records.unshift(
         this._moodService.findByDate(date) ?? new MoodRecord(Mood.Unset, date)
       );

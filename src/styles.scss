@@ -9,6 +9,10 @@ body {
 }
 
 /* Custom transition */
+::view-transition-group(root) {
+  animation: none;
+}
+
 @keyframes translate-out {
   to {
     transform: scale(0);

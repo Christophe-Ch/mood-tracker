@@ -9,3 +9,11 @@ export function dateToInputValue(date: Date): string {
 export function dateTimeToDate(date: Date): Date {
   return new Date(date.setHours(0, 0, 0, 0));
 }
+
+export function addDaysToDate(date: Date, days: number): Date {
+  const nextDate = new Date(date);
+  nextDate.setDate(date.getDate() + days);
+  return nextDate;
+}
+
+export const TODAY = dateTimeToDate(new Date());
